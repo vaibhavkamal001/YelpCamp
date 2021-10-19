@@ -1,0 +1,37 @@
+<% layout('layout/boilerplate') %>
+ 
+<script> 
+    const mapboxToken = '<%-process.env.MAPBOX_TOKEN%>';
+    const campground = {features:<%-JSON.stringify(campgrounds)%>};
+</script>
+<div class = 'mb-3' id="map" style="width: 100%; height: 500px;"></div>
+    <h1>All Campgroung</h1>
+    <div><a href="/campgrounds/new">Add Campground</a></div>
+    
+    <% for(let camp of campgrounds){%>
+        <div class="card mb-3">
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="<%=camp.image[0].url%>" alt="" class="img-fluid">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <%=camp.title %>
+                        </h5>
+                        <p class="card-text">
+                            <%=camp.description%>
+                        </p>
+                        <p class="card-text">
+                            <small class="text-muted">
+                                <%=camp.location%>
+                            </small>
+                        </p>
+                        <a href="/campgrounds/<%=camp._id%>" class="btn btn-primary">View <%=camp.title%> </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <% } %>
+
+    <script src="/clusterMap.js"></script>
